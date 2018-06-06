@@ -15,6 +15,8 @@ const { auth} = require('./middleware/auth');
 app.use(bodyParser.json());
 app.use(cookieParser());
 
+app.use(express.static('client/build'));
+
 // GET routes
 app.get('/api/auth', auth, (req, res) => {
     res.json({
@@ -46,7 +48,33 @@ app.get('/api/getBook', (req, res) => {
 });
 
 app.get('/api/books', (req, res) => {
+    let skip = parseInt(req.query.skip);
+    let limit = parseInt(req.query.limit);
+    let order = req.query.order;
     
+    // Order = Asc || Desc
+    Book.find().skip(skip).sort({_id:order}).limit(limit).exec((err, doc) => {
+        if(err){
+            return res.status(400).send(err);
+        }
+        
+        res.send(doc);
+    });
+});
+
+app.get('/api/getReviewer', (req, res) => {
+    let id = req.query.id;
+    
+    User.findById(id, (err, doc) => {
+        if(err){
+            return res.status(400).send(err);
+        }
+        
+        res.json({
+            name: doc.name,
+            lastname: doc.lastname
+        });
+    });
 });
 
 // POST routes
