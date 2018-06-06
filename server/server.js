@@ -10,11 +10,32 @@ mongoose.connect(config.DATABASE);
 
 const { User } = require('./models/user'); 
 const { Book } = require('./models/book');
+const { auth} = require('./middleware/auth');
 
 app.use(bodyParser.json());
 app.use(cookieParser());
 
 // GET routes
+app.get('/api/auth', auth, (req, res) => {
+    res.json({
+        isAuth: true,
+        id:req.user._id,
+        email:req.user.email,
+        name:req.user.name,
+        lastname:req.user.lastname
+    });
+});
+
+app.get('/api/logut', auth, (req, res) => {
+    req.user.deleteToken(req.token, (err, user) => {
+        if(err){
+            return res.status(400).send(err);
+        }   
+        
+        res.sendStatus(200);
+    });
+});
+
 app.get('/api/getBook', (req, res) => {
     let id =  req.query.id;
     
@@ -24,6 +45,9 @@ app.get('/api/getBook', (req, res) => {
     });
 });
 
+app.get('/api/books', (req, res) => {
+    
+});
 
 // POST routes
 app.post('/api/book', (req, res) => {
@@ -38,6 +62,11 @@ app.post('/api/book', (req, res) => {
         });
     });
 });
+
+// UPDATE routes
+
+
+// DELETE routes
 
 const port = process.env.PORT || 3000;
 app.listen(port,()=>{
