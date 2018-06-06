@@ -77,6 +77,26 @@ app.get('/api/getReviewer', (req, res) => {
     });
 });
 
+app.get('/api/users', (req, res)=>{
+    User.find({},(err, users)=>{
+        if(err){
+            return res.status(400).send(err);
+        } 
+        
+        res.status(200).send(users);
+    });
+});
+
+app.get('/api/user_posts', (req, res)=>{
+    Book.find({ownerId:req.query.user}).exec((err, docs)=>{
+        if(err){
+            return res.status(400).send(err);
+        }    
+            
+        res.send(docs);
+    });
+});
+
 // POST routes
 app.post('/api/book', (req, res) => {
     const book = new Book(req.body);
@@ -87,6 +107,21 @@ app.post('/api/book', (req, res) => {
         res.status(200).json({
             post: true,
             bookId: doc._id
+        });
+    });
+});
+
+app.post('/api/register', (req, res) => {
+    const user = new User(req.body);
+    
+    user.save((err, doc) => {
+        if(err){
+            return res.json({success:false});
+        }    
+        
+        res.status(200).json({
+            success: true,
+            user: doc
         });
     });
 });
