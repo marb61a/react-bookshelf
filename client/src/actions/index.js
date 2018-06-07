@@ -12,6 +12,16 @@ export function getBooks(limit = 10, start = 0, order = 'asc', list = ''){
         
         return {
             type: 'GET_BOOKS',
-            payload:request
+            payload: request
         };
+}
+
+export function getBook(id){
+    const request = axios.get(`/api/getBook?id=${id}`)
+        .then(response => response.data);
+        
+    return {
+        type: GET_BOOK,
+        payload: request
+    };
 }
