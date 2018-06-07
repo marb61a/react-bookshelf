@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+// BOOK ACTIONS
 export function getBooks(limit = 10, start = 0, order = 'asc', list = ''){
     const request = axios.get(`/api/books?limit=${limit}&skip=${start}&order=${order}`)
         .then(response => {
@@ -16,12 +17,45 @@ export function getBooks(limit = 10, start = 0, order = 'asc', list = ''){
         };
 }
 
+export function addBook(book){
+    const request = axios.post('/api/book',book)
+        .then(response => response.data);
+
+    return {
+        type: 'ADD_BOOK',
+        payload:request
+    };
+}
+
 export function getBook(id){
     const request = axios.get(`/api/getBook?id=${id}`)
         .then(response => response.data);
         
     return {
-        type: GET_BOOK,
+        type: 'GET_BOOK',
         payload: request
+    };
+}
+
+
+// USER ACTIONS
+export function userRegister(user,userList){
+    const request =axios.post('/api/register', user);
+    
+    return (dispatch) => {
+        request
+            .then(({data}) => {
+                let users = data.success ? [...userList,data.user] : userList;
+                
+                let response = {
+                    success: data.success,
+                    users
+                };
+                
+                dispatch ({
+                    type: 'USER_REGISTER',
+                    payload: response
+                });
+            });
     };
 }
