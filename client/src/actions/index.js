@@ -39,6 +39,16 @@ export function getBook(id){
 
 
 // USER ACTIONS
+export function loginUser({email, password}){
+    const request = axios.post('/api/ login', {email, password})
+        .then(response => response.data);
+    
+    return {
+        type:'USER_LOGIN',
+        payload: request
+    };
+}
+
 export function userRegister(user,userList){
     const request =axios.post('/api/register', user);
     

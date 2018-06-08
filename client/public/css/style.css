@@ -87,4 +87,8 @@ header .navItem span {
     width: 260px;
 }
 
+.rl_container.article input {
+    width: 80%;
+}
+
 
