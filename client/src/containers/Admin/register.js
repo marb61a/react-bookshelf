@@ -16,6 +16,18 @@ class Register extends PureComponent {
         this.props.dispatch(getUsers());
     }
     
+    handleInputEmail = (event) => {
+        this.setState({
+            email:event.target.value
+        });
+    }
+    
+    handleInputPassword= (event) => {
+        this.setState({
+            password:event.target.value
+        });
+    }
+    
     handleImputname = (event) => {
         this.setState({
             name: event.target.value
@@ -28,10 +40,12 @@ class Register extends PureComponent {
         });
     }
     
-    handleInputEmail = (event) => {
-        this.setState({
-            email:event.target.value
-        });
+    componentWillReceiveProps(nextProps){
+        if(nextProps.user.register === false){
+            this.setState({
+                error: 'Error, Please try again'
+            }); 
+        }
     }
     
     submitForm = (e) => {
@@ -45,6 +59,18 @@ class Register extends PureComponent {
             lastname: this.state.lastname
         }, this.props.users.user));
     }
+    
+    showUsers = (user) => (
+        user.users ?
+        user.users.map(item => (
+            <tr key={item._id}>
+                <td>{item.name}</td>
+                <td>{item.lastname}</td>
+                <td>{item.email}</td>
+            </tr>
+        ))
+        : null
+    );
     
     render(){
         let user = this.props.user;
@@ -77,7 +103,34 @@ class Register extends PureComponent {
                             onChange={this.handleInput}
                         />
                     </div>
+                    <div className="form_element">
+                        <input
+                            type="password"
+                            placeholder="Enter Password"
+                            value={this.state.password}
+                            onChange={this.handleInputPassword}
+                         />
+                    </div>
+                    <button type="submit">Add User</button>
+                    <div className="error">
+                        {this.state.error}
+                    </div>
                 </form>
+                <div className="current_users">
+                    <h4>Current Users : </h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Lastname</th>
+                                <th>Email</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {this.showUsers(user)}
+                        </tbody>
+                    </table>
+                </div>
             </div>    
         );
     }
