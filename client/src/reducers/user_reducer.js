@@ -6,6 +6,11 @@ export default function(state = {}, action){
                 register: action.payload.success,
                 users: action.payload.users
             };
+        case 'USER_AUTH':
+            return{
+                ...state,
+                login: action.payload    
+            };
         case 'USER_LOGIN':
             return{
                 ...state,
