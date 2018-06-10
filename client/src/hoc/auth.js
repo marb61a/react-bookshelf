@@ -12,6 +12,22 @@ export default function(ComposedClass, reload){
             this.props.dispatch(auth());
         }
         
+        componentWillReceiveProps(nextProps){
+            this.setState({
+                loading: false
+            });   
+            
+            if(!nextProps.user.login.isAuth){
+                if(reload){
+                    this.props.history.push('/login');
+                }
+            } else {
+                if (reload === false){
+                    this.props.history.push('/user');
+                }
+            }
+        }
+        
         render(){
             if(this.state.loading){
                 return <div className="loader">
