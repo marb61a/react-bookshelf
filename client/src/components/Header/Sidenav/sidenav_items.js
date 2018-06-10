@@ -14,8 +14,25 @@ const SidenavItems = ({user}) => {
         }
     ];
     
+    const element = (item, i) => (
+        <div key={i} className={item.type}>
+            <Link to={item.link}>
+                <FontAwesome name={item.icon}/>
+                {item.text}
+            </Link>
+        </div>    
+    );
+    
     const showItems = () => (
-        user.login
+        user.login ?
+        items.map((item, i) => {
+            if(user.login.isAuth){
+                return !item.exclude ? element(item,i) : null;
+            } else {
+                return !item.restricted ? element(item, i) : null;
+            }
+        }) 
+        : null
     );
     
     return (
