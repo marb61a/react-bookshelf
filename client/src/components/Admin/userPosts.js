@@ -5,6 +5,27 @@ import moment from 'moment-js';
 import { Link } from 'react-router-dom';
 
 class UserPosts extends Component {
+    componentWillMount(){
+        this.props.dispatch(getUserPosts(this.props.user.login.id));
+    }
+    
+    showUserPosts = (user) => (
+        user.userPosts ? 
+        user.userPosts.map(item => (
+            <tr key={item._id}>
+                <td>
+                    <Link to={`/user/edit-post/${item._id}`}>
+                        {item.name}
+                    </Link>
+                </td>
+                <td>{item.author}</td>
+                <td>
+                    {moment(item.createAt).format("MM/DD/YY")}
+                </td>
+            </tr>
+        ))
+        : null
+    );
     
     render(){
         let user = this.props.user;
