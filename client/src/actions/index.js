@@ -47,6 +47,17 @@ export function getUserPosts(userId){
     };
 }
 
+export function clearNewBook(){
+    return {
+        type: 'CLEAR_BOOK',
+        payload: {
+            book: null,
+            updateBook: false,
+            postDeleted: false
+        }
+    };    
+}
+
 
 // USER ACTIONS
 export function loginUser({email, password}){

@@ -10,6 +10,13 @@ export default function(state = {}, action){
                 ...state,
                 book: action.payload
             };
+        case 'CLEAR_BOOK':
+            return {
+                ...state,
+                updateBook: action.payload.updateBook,
+                book: action.payload.book,
+                postDeleted: action.payload.postDeleted
+            };
         default:
             return state;
     }
