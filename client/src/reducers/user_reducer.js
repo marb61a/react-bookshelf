@@ -7,12 +7,17 @@ export default function(state = {}, action){
                 users: action.payload.users
             };
         case 'USER_AUTH':
-            return{
+            return {
                 ...state,
                 login: action.payload    
             };
+        case 'GET_USER':
+            return {
+                ...state,
+                users: action.payload
+            };
         case 'USER_LOGIN':
-            return{
+            return {
                 ...state,
                 login: action.payload    
             };

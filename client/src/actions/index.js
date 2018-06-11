@@ -59,6 +59,16 @@ export function auth(){
     };
 }
 
+export function getUsers(){
+    const request = axios.get('/api/users')
+        .then(response => response.data);
+    
+    return {
+        type: 'GET_USER',
+        payload: request
+    }
+}
+
 export function userRegister(user,userList){
     const request =axios.post('/api/register', user);
     

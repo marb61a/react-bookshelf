@@ -6,11 +6,26 @@ import { connect } from 'react-redux';
 const SidenavItems = ({user}) => {
     const items = [
         {
-            type:'navItem',
-            icon:'home',
-            text:'Home',
-            link:'/',
-            restricted:false
+            type: 'navItem',
+            icon: 'home',
+            text: 'Home',
+            link: '/',
+            restricted: false
+        },
+        {
+            type: 'navItem',
+            icon: 'file-text-o',
+            text: 'Login',
+            link: '/login',
+            restricted: false,
+            exclude: true
+        },
+        {
+            type: 'navItem',
+            icon: 'file-text-o',
+            text: 'Logout',
+            link: '/user/logout',
+            restricted: true
         }
     ];
     
