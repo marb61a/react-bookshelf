@@ -19,12 +19,22 @@ class AddBook extends Component {
         const newFormdata = {
             ...this.state.formdata
         };
-        newFormdata[name] = event.target.value
+        newFormdata[name] = event.target.value;
         
         this.setState({
             formdata: newFormdata    
         });
     }
+    
+    showNewBook = (book) =>(
+        book.post ? 
+        <div className="conf_link">
+            Cool!!!! <Link to={`/books/${book.bookId}`}>
+                Click the link to see the post
+            </Link>
+        </div>
+        : null
+    );
     
     submitForm = (e) => {
         e.preventDefault();
@@ -32,6 +42,10 @@ class AddBook extends Component {
             ...this.state.formdata,
             ownerId: this.props.user.login.id
         }));
+    }
+    
+    componentWillUnmount(){
+        this.props.dispatch(clearNewBook());
     }
     
     render(){
@@ -59,6 +73,40 @@ class AddBook extends Component {
                         value={this.formdata.value.review}
                         onChange={(event)=>this.handleInput(event,'review')}
                     />
+                    <div className="form_element">
+                        <input 
+                            type="number"
+                            placeholder="Enter pages"
+                            value={this.state.formdata.pages}
+                            onChange={(event)=>this.handleInput(event,'pages')}
+                        />
+                    </div>
+                    <div className="form_element">
+                        <select
+                            value={this.state.formdata.rating}
+                            onChange={(event)=>this.handleInput(event,'rating')}
+                        >
+                            <option val="1">1</option>
+                            <option val="2">2</option>
+                            <option val="3">3</option>
+                            <option val="4">4</option>
+                            <option val="5">5</option>
+                        </select>
+                    </div>
+                    <div className="form_element">
+                        <input 
+                            type="number"
+                            placeholder="Enter Price"
+                            value={this.state.formdata.price}
+                            onChange={(event)=>this.handleInput(event,'price')}
+                        />
+                    </div>
+                    <button type="submit">Add Review</button>
+                    {
+                        this.props.books.newbook ? 
+                        this.showNewBook(this.props.books.newbook)
+                        : null
+                    }
                 </form>
             </div>    
         );
