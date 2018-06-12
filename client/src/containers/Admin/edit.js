@@ -20,11 +20,11 @@ class EditBook extends PureComponent {
     const newFormdata = {
       ...this.state.formdata
     }
-    newFormdata[name] = event.target.value
+    newFormdata[name] = event.target.value;
 
     this.setState({
-        formdata:newFormdata
-    })
+        formdata: newFormdata
+    });
   }
 
   submitForm = (e) => {

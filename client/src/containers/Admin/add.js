@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { addBook, clearNewBook } from '../../actions';
+import { addBook, clearNewBook, clearBook } from '../../actions';
 
 class AddBook extends Component {
   state = {
@@ -15,6 +15,27 @@ class AddBook extends Component {
     }
   }
 
+  handleInput = (event, name) => {
+    const newFormdata = {
+      ...this.state.formdata
+    }
+    newFormdata[name] = event.target.value;
+
+    this.setState({
+        formdata: newFormdata
+    });
+  }
+
+  showNewBook = (book) => (
+    book.post ?
+    <div className="conf_link">
+      Cool !! <Link to={`/books/${book.bookId}`}>
+        Click the link to see the post
+      </Link>
+    </div>
+    : null
+  );
+
   submitForm = (e) => {
     e.preventDefault();
     this.props.dispatch(addBook({
@@ -23,12 +44,43 @@ class AddBook extends Component {
     }));
   }
 
+  componentWillUnmount(){
+    this.props.dispatch(clearBook());
+  }
+
   render(){
     return (
       <div className="rl_container article">
         <form onSubmit={this.submitForm}>
           <h2>Add a review</h2>
-
+          <div className="form_element">
+            <input 
+              type="text"
+              placeholder="Enter First Name"
+              value={this.state.name}
+              onChange={(event)=>this.handleInput(event,'name')}
+            />
+          </div>
+          <div className="form_element">
+            <input
+              type="text"
+              placeholder="Enter author"
+              value={this.state.formdata.author}
+              onChange={(event)=>this.handleInput(event,'author')}
+            />
+          </div>
+          <textarea 
+            value={this.state.formdata.review}
+            onChange={(event)=>this.handleInput(event,'review')}
+          />
+          <div className="form_element">
+            <input 
+              type="number"
+              placeholder="Enter pages"
+              value={this.state.formdata.pages}
+              onChange={(event)=>this.handleInput(event,'pages')}
+            />
+          </div>
         </form>
       </div>
     )
