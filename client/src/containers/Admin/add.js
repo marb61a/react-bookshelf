@@ -81,6 +81,32 @@ class AddBook extends Component {
               onChange={(event)=>this.handleInput(event,'pages')}
             />
           </div>
+          <div className="form_element">
+            <select
+              value={this.state.formdata.rating}
+              onChange={(event)=>this.handleInput(event,'rating')}
+            >
+              <option val="1">1</option>
+              <option val="2">2</option>
+              <option val="3">3</option>
+              <option val="4">4</option>
+              <option val="5">5</option>
+            </select>
+          </div>
+          <div className="form_element">
+            <input 
+              type="number"
+              placeholder="Enter Price"
+              value={this.state.formdata.price}
+              onChange={(event)=>this.handleInput(event,'price')}
+            />
+          </div>
+          <button type="submit">Add review</button>
+          {
+            this.props.books.newBook ? 
+            this.showNewBook(this.props.books.newBook)
+            : null
+          }
         </form>
       </div>
     )
