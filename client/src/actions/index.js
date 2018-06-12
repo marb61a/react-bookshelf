@@ -60,6 +60,13 @@ export function addBook(book){
     };
 }
 
+export function clearNewBook(){
+    return {
+        type: 'CLEAR_NEWBOOK',
+        payload: {}
+    }
+}
+
 export function getBook(id){
     const request = axios.get(`/api/getBook?id=${id}`)
         .then(response => response.data);
@@ -80,7 +87,27 @@ export function getUserPosts(userId){
     };
 }
 
-export function clearNewBook(){
+export function updateBook(data){
+    const request = axios.post('/api/book_update', data)
+        .then(response => response.data);
+    
+    return {
+        type: 'UPDATE_BOOK',
+        payload: request
+    }
+}
+
+export function deleteBook(id){
+    const request = axios.delete(`/api/delete_book?id=${id}`)
+        .then(response => response.data);
+
+    return {
+        type:'DELETE_BOOK',
+        payload:request
+    }
+}
+
+export function clearBook(){
     return {
         type: 'CLEAR_BOOK',
         payload: {
