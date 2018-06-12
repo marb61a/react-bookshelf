@@ -292,4 +292,53 @@ tr:nth-child(even) {
     font-weight: 700
 }
 
+.br_container .br_box .right {
+    flex-grow: 1;
+    height: 106px;
+    background: #3c3c3c;
+    color: #fff;
+    font-weight: 700;
+    padding: 21px 15px;
+    box-sizing: border-box;
+    text-align: center;
+}
+.br_container .br_box .right div {
+    font-size: 40px;
+    font-weight: 300;
+}
 
+.logout_container h1{
+    color: #02bcd4;
+    font-size: 30px;
+    font-weight: 300;
+    text-align: center;
+    padding-top: 31px;
+}
+
+
+/* LOADER */
+.loader,
+.loader:before,
+.loader:after {
+  border-radius: 50%;
+}
+
+.loader {
+    color: #ebebeb;
+    font-size: 11px;
+  text-indent: -99999em;
+  margin: 55px auto;
+  position: relative;
+  width: 10em;
+  height: 10em;
+  box-shadow: inset 0 0 0 1em;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+}
+
+.loader:before,
+.loader:after {
+  position: absolute;
+  content: '';
+}
