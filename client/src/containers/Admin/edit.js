@@ -16,6 +16,40 @@ class EditBook extends PureComponent {
     }
   }
 
+  deletePost = () => {
+    this.props.dispatch(updateBook(this.state.formdata));
+  }
+
+  redirectUser = () => {
+    setTimeout(() => {
+      this.props.history.push('/user/user-reviews');
+    }, 1000);
+  }
+
+  componentWillMount(){
+    this.props.dispatch(getBook(this.props.match.params.id));
+  }
+
+  componentWillReceiveProps(nextProps){
+    let book = nextProps.books.book;
+
+    this.setState({
+      formdata:{
+        _id: book._id,
+        name: book.name,
+        author: book.author,
+        review: book.review,
+        pages: book.pages,
+        rating: book.rating,
+        price: book.price
+      }
+    })
+  }
+
+  componentWillUnmount(){
+    this.props.dispatch(clearBook());
+  }
+
   render(){
     let books = this.props.books;
 
@@ -30,7 +64,23 @@ class EditBook extends PureComponent {
           </div>
           : null
         }
+        {
+          books.postDeleted ?
+          <div className="red_tag">
+            Post Deleted
+            {this.redirectUser}
+          </div>
+          : null
+        }
       </div>
     );
   }
 }
+
+function mapStateToProps(state){
+  return {
+    books: state.books
+  }
+}
+
+export default connect(mapStateToProps)(EditBook);
