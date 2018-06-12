@@ -16,8 +16,23 @@ class EditBook extends PureComponent {
     }
   }
 
-  deletePost = () => {
+  handleInput = (event, name) =>{
+    const newFormdata = {
+      ...this.state.formdata
+    }
+    newFormdata[name] = event.target.value
+
+    this.setState({
+        formdata:newFormdata
+    })
+  }
+
+  submitForm = (e) => {
     this.props.dispatch(updateBook(this.state.formdata));
+  }
+
+  deletePost = () => {
+    this.props.dispatch(deleteBook(this.props.match.params.id));
   }
 
   redirectUser = () => {
@@ -72,6 +87,37 @@ class EditBook extends PureComponent {
           </div>
           : null
         }
+        <form onSubmit={this.submitForm}>
+          <h2>Edit Review</h2>
+          <div className="form_element">
+            <input 
+              type="text"
+              placeholder="Enter First Name"
+              value={this.state.name}
+              onChange={(event)=>this.handleInput(event,'name')}
+            />
+          </div>
+          <div className="form_element">
+            <input
+              type="text"
+              placeholder="Enter author"
+              value={this.state.formdata.author}
+              onChange={(event)=>this.handleInput(event,'author')}
+            />
+          </div>
+          <textarea 
+            value={this.state.formdata.review}
+            onChange={(event)=>this.handleInput(event,'review')}
+          />
+          <div className="form_element">
+            <input 
+              type="number"
+              placeholder="Enter pages"
+              value={this.state.formdata.pages}
+              onChange={(event)=>this.handleInput(event,'pages')}
+            />
+          </div>
+        </form>
       </div>
     );
   }
