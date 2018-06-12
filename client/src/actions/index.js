@@ -121,7 +121,7 @@ export function clearBook(){
 
 // USER ACTIONS
 export function loginUser({email, password}){
-    const request = axios.post('/api/ login', {email, password})
+    const request = axios.post('/api/login', {email, password})
         .then(response => response.data);
     
     return {
