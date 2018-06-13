@@ -5,11 +5,11 @@ import Nav from './Sidenav/sidenav';
 
 class Header extends Component {
     state = {
-        showNav : false
+        showNav: false
     }
     
     onHideNav = () => {
-        this.setState({showNav:false});
+        this.setState({showNav: false});
     }
     
     render(){
@@ -27,8 +27,8 @@ class Header extends Component {
                 </div>
                 
                 <Nav 
-                    showNav={this.state.showNav}
-                    onHideNav={()=>this.onHideNav()}
+                    showNav = {this.state.showNav}
+                    onHideNav = {() => this.onHideNav()}
                 />
                 
                 <Link to="/" className="logo">
