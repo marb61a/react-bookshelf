@@ -28,7 +28,7 @@ app.get('/api/auth', auth, (req, res) => {
     });
 });
 
-app.get('/api/logut', auth, (req, res) => {
+app.get('/api/logout', auth, (req, res) => {
     req.user.deleteToken(req.token, (err, user) => {
         if(err){
             return res.status(400).send(err);
@@ -189,8 +189,15 @@ app.delete('/api/delete_book', (req, res) => {
     });
 });
 
+if(process.env.NODE_ENV === 'production'){
+    const path = require('path');
+
+    app.get('/*', (req, res) => {
+        res.sendfile(path.resolve(__dirname,'../client','build','index.html'));
+    })
+}
 
 const port = process.env.PORT || 3000;
 app.listen(port,()=>{
-    console.log(`SERVER RUNNNING`);
+    console.log(`SERVER RUNNING`);
 });
