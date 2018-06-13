@@ -5,10 +5,10 @@ import { loginUser } from '../../actions';
 
 class Login extends Component {
     state = {
-        email:'',
-        password:'',
-        error:'',
-        success:false
+        email: '',
+        password: '',
+        error: '',
+        success: false
     };
     
     handleInputEmail = (event) => {
@@ -29,7 +29,7 @@ class Login extends Component {
         }
     }
     
-    submitForm(e){
+    submitForm = (e) => {
         e.preventDefault();
         this.props.dispatch(loginUser(this.state));    
     }

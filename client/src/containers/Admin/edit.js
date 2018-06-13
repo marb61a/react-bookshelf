@@ -7,12 +7,12 @@ class EditBook extends PureComponent {
   state = {
     formdata:{
       _id:this.props.match.params.id,
-            name:'',
-            author:'',
-            review:'',
-            pages:'',
-            rating:'',
-            price:''
+      name: '',
+      author: '',
+      review: '',
+      pages: '',
+      rating: '',
+      price: ''
     }
   }
 
@@ -23,7 +23,7 @@ class EditBook extends PureComponent {
     newFormdata[name] = event.target.value;
 
     this.setState({
-        formdata: newFormdata
+      formdata: newFormdata
     });
   }
 

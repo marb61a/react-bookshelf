@@ -1,7 +1,7 @@
 import React from 'react';
 
 const User = (props) => {
-    let user = this.props.login;
+    let user = props.user.login;
 
     return (
         <div className="user_container">

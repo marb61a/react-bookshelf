@@ -45,6 +45,13 @@ class Register extends PureComponent {
             this.setState({
                 error: 'Error, Please try again'
             }); 
+        } else {
+            this.setState({
+                name:'',
+                lastname:'',
+                email:'',
+                password:''
+            });
         }
     }
     
@@ -100,7 +107,7 @@ class Register extends PureComponent {
                             type="email"
                             placeholder="Enter Email Address"
                             value={this.state.email}
-                            onChange={this.handleInput}
+                            onChange={this.handleInputEmail}
                         />
                     </div>
                     <div className="form_element">
